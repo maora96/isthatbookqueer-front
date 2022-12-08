@@ -1,0 +1,64 @@
+.content-container {
+  width: 70%;
+  margin: 0 auto;
+  padding: 10px;
+
+  h3 {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.book-container {
+  display: flex;
+  gap: 20px;
+  // border: 1px solid #d9d9d9;
+  padding: 1rem;
+  width: 100%;
+
+  img {
+    height: 350px;
+  }
+}
+
+.card-content {
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.icon {
+  font-size: 20px;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.links {
+  margin-top: 20px;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.genres,
+.rep {
+  display: flex;
+  gap: 2px;
+  font-size: 12px;
+  align-items: center;
+}
