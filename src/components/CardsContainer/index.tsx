@@ -11,7 +11,7 @@ interface ICardsContainer {
 export default function CardsContainer({ books }: ICardsContainer) {
   return (
     <>
-      {books.length === 0 ? (
+      {books?.length === 0 ? (
         <div className={styles.result}>
           <div className={styles.result}>
             <Result
