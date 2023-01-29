@@ -1,27 +1,15 @@
 import styles from "./styles.module.scss";
-import {
-  Form,
-  Input,
-  Select,
-  Space,
-  Radio,
-  Button,
-  Alert,
-  Divider,
-  Collapse,
-  Card,
-} from "antd";
-import SearchForm from "../../components/SearchForm";
+import { Typography } from "antd";
 import Header from "../../components/Header";
-import BookCard from "../../components/BookCard";
 
 export default function About() {
+  const { Text, Title } = Typography;
   return (
     <div className={styles.container}>
       <Header />
       <div className={styles["content-container"]}>
-        <h1>About</h1>
-        <p>
+        <Title level={1}>About</Title>
+        <Text>
           Hey, there! I'm Ren, an aroace queer writer by night and a web dev by
           day. This website is a passion project that came to fruition after way
           too many hours browsing Goodreads or Amazon looking for non-romance
@@ -30,7 +18,7 @@ export default function About() {
           suggestions (I'm on <a href="">Twitter</a>!) and, if you can, support
           the project by leaving me a tip on <a href="">ko-fi</a>. Hope you
           enjoy your stay!
-        </p>
+        </Text>
       </div>
     </div>
   );

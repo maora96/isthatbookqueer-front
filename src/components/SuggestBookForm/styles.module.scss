@@ -2,32 +2,19 @@
   display: flex;
   gap: 20px;
   border: 1px solid #d9d9d9;
-  padding: 1rem;
-  width: 100%;
 
   img {
-    height: 300px;
-    width: 200px;
-    object-fit: cover;
+    height: 220px;
   }
 }
 
 .card-content {
-  height: auto;
+  height: 220px;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 20px;
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.icon {
-  font-size: 20px;
 }
 
 .links {
@@ -46,4 +33,15 @@
   gap: 2px;
   font-size: 12px;
   align-items: center;
+}
+
+.character {
+  border: 1px solid #d9d9d9;
+  padding: 10px;
+}
+
+.cover {
+  height: 300px;
+  width: 200px;
+  object-fit: cover;
 }

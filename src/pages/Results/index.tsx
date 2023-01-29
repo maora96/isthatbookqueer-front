@@ -11,54 +11,85 @@ import {
   Collapse,
   Card,
   Spin,
+  Typography,
 } from "antd";
 import SearchForm from "../../components/SearchForm";
 import Header from "../../components/Header";
 import BookCard from "../../components/BookCard";
 import { supabase } from "../../api";
-import { useQuery } from "../../hooks/query";
 import { useEffect, useState } from "react";
 import { Book } from "../../types";
 import CardsContainer from "../../components/CardsContainer";
+// import { useGetBooks } from "../../hooks/books";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useQuery } from "react-query";
+import { getBooksClient } from "../../api/client";
 
 export default function Results() {
-  const query = useQuery();
-  const [results, setResults] = useState<Book[]>([]);
+  const navigate = useNavigate();
+  let [searchParams, setSearchParams] = useSearchParams();
+  const { Text, Title } = Typography;
+  const [form] = Form.useForm();
+  const { Search } = Input;
 
-  const getResults = async (search: string) => {
-    const { data, error } = await supabase
-      .from("books")
-      .select()
-      .ilike("title", `%${search}%`)
-      .eq("approved", false);
+  const [filters, setFilters] = useState<any>({
+    amount: 50,
+    page: 1,
+    since: undefined,
+    until: undefined,
+    search: searchParams.get("search"),
+  });
 
-    console.log("result:", data, error);
-    if (data) {
-      setResults(data);
+  const { data, isFetching } = useQuery(
+    ["getBooks", filters],
+    async () =>
+      getBooksClient(
+        filters.page,
+        filters.amount,
+        filters.since,
+        filters.until,
+        filters.search
+      ),
+    {
+      staleTime: 5000,
+      refetchOnWindowFocus: false,
+      keepPreviousData: true,
+      onSuccess: () => navigate(`/results?search=${filters.search}`),
     }
+  );
+
+  const onSubmit = async (rawData: any) => {
+    if (typeof rawData === "string")
+      setFilters({ ...filters, search: rawData });
   };
-  useEffect(() => {
-    const search = query.get("search");
-    if (search) getResults(search);
-  }, []);
 
   return (
     <div className={styles.container}>
       <Header />
       <div className={styles["content-container"]}>
-        <h1>You searched for: {query.get("search")}</h1>
+        <div className={styles["form-container"]}>
+          <Form
+            className={styles.form}
+            layout="vertical"
+            form={form}
+            name="search-book"
+            onFinish={onSubmit}
+          >
+            <Search
+              placeholder="Search for a book by title or author"
+              onSearch={onSubmit}
+              enterButton
+            />
+          </Form>
+        </div>
 
-        {results?.length === 0 ? (
-          <div className={styles.spin}>
-            <h2>No book found :(</h2>
-            <p>
-              If you know more about this book, please consider suggesting it by
-              clicking the "Suggest a book" button at the top left corner of the
-              page!
-            </p>
+        <Title level={1}>You searched for: {filters.search}</Title>
+        {isFetching ? (
+          <div className={styles.result}>
+            <Spin size="large" />
           </div>
         ) : (
-          <CardsContainer books={results} />
+          <CardsContainer books={data?.data?.result} />
         )}
       </div>
     </div>

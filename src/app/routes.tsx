@@ -6,6 +6,9 @@ import Favorites from "../pages/Favorites";
 import Home from "../pages/Home";
 import Results from "../pages/Results";
 import SignIn from "../pages/SignIn";
+import SuggestBook from "../pages/SuggestBook";
+import SuggestBookError from "../pages/SuggestBookError";
+import SuggestBookSuccess from "../pages/SuggestBookSuccess";
 
 export function MainRoutes() {
   const ProtectedRoute = ({ children }: any) => {
@@ -33,6 +36,9 @@ export function MainRoutes() {
       <Route path="/about" element={<About />} />
       <Route path="/results" element={<Results />} />
       <Route path="/favorites" element={<Favorites />} />
+      <Route path="/suggest-book" element={<SuggestBook />} />
+      <Route path="/suggest-book/success" element={<SuggestBookSuccess />} />
+      <Route path="/suggest-book/error" element={<SuggestBookError />} />
     </Routes>
   );
 }

@@ -9,6 +9,10 @@
   }
 }
 
+.form-container {
+  margin-bottom: 20px;
+}
+
 .cards-container {
   display: flex;
   flex-direction: column;
@@ -19,9 +23,10 @@
   display: flex;
 }
 
-.spin {
+.result {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  width: 100%;
+  margin-top: 20px;
 }

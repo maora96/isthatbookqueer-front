@@ -1,22 +1,14 @@
-import { Menu, Button, Tooltip } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { Tooltip } from "antd";
 import styles from "./styles.module.scss";
-import BaseDrawer from "../BaseDrawer";
-import SuggestForm from "../SuggestForm";
-import {
-  CheckCircleTwoTone,
-  CloseCircleTwoTone,
-  HeartTwoTone,
-} from "@ant-design/icons";
+import { HeartTwoTone } from "@ant-design/icons";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 interface IFavorite {
-  id: number;
+  id: string;
 }
 
 export default function Favorite({ id }: IFavorite) {
-  const [favorites, setFavorites] = useState<number[]>([]);
+  const [favorites, setFavorites] = useState<string[]>([]);
 
   useEffect(() => {
     const favoritesStored = localStorage.getItem("favorites");
@@ -27,22 +19,19 @@ export default function Favorite({ id }: IFavorite) {
     }
   }, []);
 
-  const favoriteBook = (id: number) => {
+  const favoriteBook = (id: string) => {
     const favoritesStored = localStorage.getItem("favorites");
 
     if (favoritesStored !== null && favoritesStored !== undefined) {
       const oldFavorites = JSON.parse(favoritesStored);
       const isAlreadyInFavorites = oldFavorites?.find(
-        (iid: string) => Number(iid) === id
+        (iid: string) => iid === id
       );
-      console.log(isAlreadyInFavorites);
 
       let newFavorites = [];
 
       if (isAlreadyInFavorites) {
-        newFavorites = oldFavorites?.filter(
-          (iid: string) => Number(iid) !== id
-        );
+        newFavorites = oldFavorites?.filter((iid: string) => iid !== id);
       } else {
         newFavorites = [...favorites, id];
       }
@@ -57,7 +46,6 @@ export default function Favorite({ id }: IFavorite) {
   };
 
   const isFavorited = favorites?.find((iid) => iid === id);
-  console.log("isFavorited", isFavorited);
   return (
     <button className={styles.favorite} onClick={() => favoriteBook(id)}>
       {isFavorited ? (

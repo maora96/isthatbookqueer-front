@@ -26,17 +26,6 @@ export default function SignIn() {
   const { Search } = Input;
 
   const onSubmit = async (data: any) => {
-    console.log(data);
-    // const { error } = await supabase.auth.signIn({ email: data.email });
-
-    // if (error) {
-    //   console.log(error);
-    // }
-    // const { user, error } = await supabase.auth.signUp({
-    //   email: data.email,
-    //   password: data.password,
-    // });
-
     const { user, error } = await supabase.auth.signIn({
       email: data.email,
       password: data.password,
@@ -45,8 +34,6 @@ export default function SignIn() {
     if (user) {
       navigate("/admin");
     }
-
-    console.log(user, error);
   };
 
   return (

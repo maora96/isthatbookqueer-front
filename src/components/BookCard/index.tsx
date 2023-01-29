@@ -1,8 +1,8 @@
-import { Button, Tag, Divider, Tooltip } from "antd";
+import { Button, Tag, Divider, Tooltip, Typography } from "antd";
 import { CheckCircleTwoTone, CloseCircleTwoTone } from "@ant-design/icons";
-import styles from "./styles.module.scss";
 import { Book } from "../../types";
 import { useNavigate } from "react-router-dom";
+import styles from "./styles.module.scss";
 
 interface IBookCard {
   book: Book;
@@ -10,16 +10,16 @@ interface IBookCard {
 
 export default function BookCard({ book }: IBookCard) {
   const navigate = useNavigate();
-
+  const { Text, Title } = Typography;
   return (
     <div className={styles.container}>
       <img src={book.cover} alt={book.title} />
       <div className={styles["card-content"]}>
         <div className={styles["card-header"]}>
           <div className={styles.left}>
-            <h3>{book.title}</h3>
-            <h5>by {book.author}</h5>
-            {book?.series ? <h5>{book.series}</h5> : null}
+            <Title level={3}>{book.title}</Title>
+            <Title level={5}>by {book.author}</Title>
+            {book?.series && <Title level={5}>{book.series}</Title>}
           </div>
           <div className={styles.right}>
             {book.is_queer ? (
@@ -46,7 +46,7 @@ export default function BookCard({ book }: IBookCard) {
               <Tag color="cyan">{gen}</Tag>
             ))}
           </div>
-          {book.description.split("\n")[0]} [...]
+          <Text>{book.description.split("\n")[0]} [...]</Text>
         </div>
         <div className={styles.links}>
           <Button

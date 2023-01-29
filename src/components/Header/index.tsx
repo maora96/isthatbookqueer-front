@@ -1,14 +1,9 @@
-import { Menu, Button } from "antd";
+import { Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import styles from "./styles.module.scss";
-import BaseDrawer from "../BaseDrawer";
-import SuggestForm from "../SuggestForm";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Header() {
-  const [drawerShow, setDrawerShow] = useState(false);
-
   const navigate = useNavigate();
   return (
     <>
@@ -17,7 +12,7 @@ export default function Header() {
           type="primary"
           htmlType="button"
           icon={<PlusOutlined />}
-          onClick={() => setDrawerShow(true)}
+          onClick={() => navigate("/suggest-book")}
         >
           Suggest a book
         </Button>
@@ -41,13 +36,6 @@ export default function Header() {
           </Button>
         </div>
       </div>
-      <BaseDrawer
-        title="Suggest a book"
-        drawerShow={drawerShow}
-        setDrawerShow={setDrawerShow}
-      >
-        <SuggestForm setDrawerShow={setDrawerShow} />
-      </BaseDrawer>
     </>
   );
 }
